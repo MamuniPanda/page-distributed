@@ -12,6 +12,6 @@ spec:
     targetPort: 8081
   selector:
     app: business
-  type: NodePort
+  type: LoadBalancer
 status:
   loadBalancer: {}
