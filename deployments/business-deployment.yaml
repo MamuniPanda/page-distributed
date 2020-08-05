@@ -4,7 +4,7 @@ metadata:
   labels:
     app: business
   name: business
-  namespace: aditya
+  namespace: pradeep
 spec:
   replicas: 2
   selector:
@@ -19,9 +19,9 @@ spec:
       volumes:
       - name: log-volume
         persistentVolumeClaim:
-          claimName: log-persistent-claim-<your-name>
+          claimName: log-persistent-claim-pradeep
       containers:
-      - image: adityapratapbhuyan/business:distributed
+      - image: mamunipanda/business:distributed
         imagePullPolicy: Always
         name: business
         env:

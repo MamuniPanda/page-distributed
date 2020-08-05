@@ -4,7 +4,7 @@ metadata:
   labels:
     app: category
   name: category
-  namespace: aditya
+  namespace: pradeep
 spec:
   replicas: 2
   selector:
@@ -19,9 +19,9 @@ spec:
       volumes:
       - name: log-volume
         persistentVolumeClaim:
-          claimName: log-persistent-claim-<your-name>
+          claimName: log-persistent-claim-pradeep
       containers:
-      - image: adityapratapbhuyan/category:distributed
+      - image: mamunipanda/category:distributed
         imagePullPolicy: Always
         name: category
         ports:

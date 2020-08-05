@@ -1,16 +1,16 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: log-persistent-volume-<your-name>
-  namespace: aditya
+  name: log-persistent-volume-pradeep
+  namespace: pradeep
   labels:
     type: local
 spec:
   volumeMode: Filesystem
-  storageClassName: pv-aditya
+  storageClassName: pv-pradeep
   capacity:
     storage: 500Mi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/logs-<your-name>"
+    path: "/mnt/logs-pradeep"

@@ -1,15 +1,15 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: mysql-persistent-volume-<your-name>
-  namespace: aditya
+  name: mysql-persistent-volume-pradeep
+  namespace: pradeep
   labels:
     type: local
 spec:
-  storageClassName: mysql-aditya
+  storageClassName: mysql-pradeep
   capacity:
     storage: 1Gi
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: "/mnt/data-<your-name>"
+    path: "/mnt/data-pradeep"

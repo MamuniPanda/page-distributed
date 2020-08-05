@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: aditya
+  namespace: pradeep
   labels:
     app: mysql
 spec:
@@ -32,8 +32,8 @@ spec:
           name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql-<your-name>
+          mountPath: /var/lib/mysql-pradeep
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim-<your-name>
+          claimName: mysql-pv-claim-pradeep

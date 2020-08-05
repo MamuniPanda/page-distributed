@@ -876,18 +876,18 @@ docker push <docker-user-name>/business:distributed
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: <your-name>
+  name: pradeep
 ```
  - app-log-pvc.yaml
  ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: log-persistent-claim-<your-name>
-  namespace: <your-name>
+  name: log-persistent-claim-pradeep
+  namespace: pradeep
 spec:
   volumeMode: Filesystem
-  storageClassName: pv-<your-name>
+  storageClassName: pv-pradeep
   accessModes:
     - ReadWriteOnce
   resources:
@@ -899,19 +899,19 @@ spec:
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: log-persistent-volume-<your-name>
-  namespace: <your-name>
+  name: log-persistent-volume-pradeep
+  namespace: pradeep
   labels:
     type: local
 spec:
   volumeMode: Filesystem
-  storageClassName: pv-<your-name>
+  storageClassName: pv-pradeep
   capacity:
     storage: 500Mi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/logs-<your-name>"
+    path: "/mnt/logs-pradeep"
 ```
  - business-deployment.yaml
  ```yaml
@@ -921,7 +921,7 @@ metadata:
   labels:
     app: business
   name: business
-  namespace: <your-name>
+  namespace: pradeep
 spec:
   replicas: 2
   selector:
@@ -936,7 +936,7 @@ spec:
       volumes:
       - name: log-volume
         persistentVolumeClaim:
-          claimName: log-persistent-claim-<your-name>
+          claimName: log-persistent-claim-pradeep
       containers:
       - image: <docker-user-name>/business:distributed
         imagePullPolicy: Always
@@ -961,12 +961,12 @@ metadata:
   labels:
     app: business
   name: business
-  namespace: <your-name>
+  namespace: pradeep
 spec:
   volumes:
   - name: log-volume
     persistentVolumeClaim:
-      claimName: log-persistent-claim-<your-name>
+      claimName: log-persistent-claim-pradeep
   containers:
   - image: <docker-user-name>/business:distributed
     imagePullPolicy: Always
@@ -993,7 +993,7 @@ metadata:
   labels:
     app: business
   name: business
-  namespace: <your-name>
+  namespace: pradeep
 spec:
   ports:
   - port: 8081
@@ -1014,7 +1014,7 @@ metadata:
   labels:
     app: category
   name: category
-  namespace: <your-name>
+  namespace: pradeep
 spec:
   replicas: 2
   selector:
@@ -1029,7 +1029,7 @@ spec:
       volumes:
       - name: log-volume
         persistentVolumeClaim:
-          claimName: log-persistent-claim-<your-name>
+          claimName: log-persistent-claim-pradeep
       containers:
       - image: <docker-user-name>/category:distributed
         imagePullPolicy: Always
@@ -1050,12 +1050,12 @@ metadata:
   labels:
     app: category
   name: category
-  namespace: <your-name>
+  namespace: pradeep
 spec:
   volumes:
   - name: log-volume
     persistentVolumeClaim:
-        claimName: log-persistent-claim-<your-name>
+        claimName: log-persistent-claim-pradeep
   containers:
   - image: <docker-user-name>/category:distributed
     imagePullPolicy: Always
@@ -1079,7 +1079,7 @@ metadata:
   labels:
     app: category
   name: category
-  namespace: <your-name>
+  namespace: pradeep
 spec:
   ports:
   - port: 8082
@@ -1100,7 +1100,7 @@ data:
 kind: Secret
 metadata:
   name: mysql-secret
-  namespace: <your-name>
+  namespace: pradeep
 ```
  - mysql-client.sh
 ```shell script
@@ -1112,7 +1112,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: <your-name>
+  namespace: pradeep
   labels:
     app: mysql
 spec:
@@ -1142,11 +1142,11 @@ spec:
           name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql-<your-name>
+          mountPath: /var/lib/mysql-pradeep
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim-<your-name>
+          claimName: mysql-pv-claim-pradeep
 
 ```
  - mysql-pvc.yaml
@@ -1154,10 +1154,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim-<your-name>
-  namespace: <your-name>
+  name: mysql-pv-claim-pradeep
+  namespace: pradeep
 spec:
-  storageClassName: mysql-<your-name>
+  storageClassName: mysql-pradeep
   accessModes:
     - ReadWriteOnce
   resources:
@@ -1170,12 +1170,12 @@ spec:
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: mysql-persistent-volume-<your-name>
-  namespace: <your-name>
+  name: mysql-persistent-volume-pradeep
+  namespace: pradeep
   labels:
     type: local
 spec:
-  storageClassName: mysql-<your-name>
+  storageClassName: mysql-pradeep
   capacity:
     storage: 1Gi
   accessModes:
@@ -1189,7 +1189,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: mysql
-  namespace: <your-name>
+  namespace: pradeep
   labels:
     app: mysql
 spec:
@@ -1277,7 +1277,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: <docker-your-name>/business
+          repository: <docker-pradeep>/business
           tags: distributed
           dockerfile: dockerfiles/Dockerfile-business
       - name: build-docker-image-category
@@ -1332,7 +1332,7 @@ git add .
 git commit -m "MESSAGE"
 git push origin distributed-work:master -f
 ```
-- The pipeline would create a namespace with \<your-name> and create all the objects inside it.
+- The pipeline would create a namespace with \pradeep and create all the objects inside it.
 - All the files would be executed in following order in kubernetes cluster if pipeline is not used.
 ```shell script
 kubectl apply -f deployments/dist-namespace.yaml
@@ -1355,7 +1355,7 @@ kubectl delete -f deployments/business-deployment.yaml
 ```
 - Execute the below command in kubernetes cluster to set your default namespace
 ```shell script
-kubectl config set-context --current --namespace=<your-name>
+kubectl config set-context --current --namespace=pradeep
 ```
 - All the deployments could be verified by using the following commands one by one
 ```shell script

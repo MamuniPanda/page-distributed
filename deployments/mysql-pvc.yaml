@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim-<your-name>
-  namespace: aditya
+  name: mysql-pv-claim-pradeep
+  namespace: pradeep
 spec:
-  storageClassName: mysql-aditya
+  storageClassName: mysql-pradeep
   accessModes:
     - ReadWriteOnce
   resources:
